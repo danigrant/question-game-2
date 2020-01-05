@@ -1,11 +1,25 @@
 import axios from 'axios'
 
 class Index extends React.Component {
-  state = { activePostIndex: 0 }
+  state = { activePostIndex: 0, question: '' }
 
   static async getInitialProps() {
     const { data } = await axios.get('http://localhost:3000/api/posts')
     return { posts: data }
+  }
+
+  handleChange = event => {
+    this.setState({ question: event.target.value })
+  }
+
+  handleSubmit = event => {
+    event.preventDefault()
+    const { data } = await axios.post('http://localhost:3000/api/posts', {  })
+  }
+
+  handleSkip = () => {
+    const { activePostIndex } = this.state
+    this.setState({ activePostIndex: activePostIndex + 1 })
   }
 
   render() {
@@ -31,6 +45,12 @@ class Index extends React.Component {
                 <source src={posts[activePostIndex].url} />
               </video>
             ) }
+            <p className="post-prompt">What is the question on the tip of your tongue?</p>
+            <form onSubmit={this.handleSubmit}>
+              <input type="text" placeholder="ask your magnificent question" onChange={this.handleChange} />
+              <button type="submit">Ask your question and see others</button>
+              <button onClick={this.handleSkip}>Skip</button>
+            </form>
           </div>
         </div>
         <style jsx>{`
@@ -42,10 +62,12 @@ class Index extends React.Component {
             margin: 0 auto;
             box-sizing: border-box;
             padding: 30px;
+            padding-left: 80px;
+            padding-right: 80px;
             box-shadow: 0px 4px 4px rgba(135, 135, 135, 0.05);
           }
           .post img {
-            max-width: 400px;
+            max-width: 600px;
           }
           .attribution-avatar img {
             width: 3.125rem;
@@ -66,6 +88,9 @@ class Index extends React.Component {
             color: #757575;
             font-size: .875rem;
             line-height: 1.3;
+          }
+          .post-prompt {
+            font-weight: bold;
           }
         `}</style>
       </div>
