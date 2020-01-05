@@ -22,7 +22,7 @@ app.prepare().then(() => {
   server.get('/api/posts', async (req, res) => {
     let { page } = req.query // for when we need pagination
 
-    let posts = await db.any('select posts.post_id, posts.url, posts.user_id, posts.type, users.display_name, users.avatar_image_url from posts CROSS JOIN users;')
+    let posts = await db.any('select posts.post_id, posts.date_created, posts.url, posts.user_id, posts.type, users.display_name, users.avatar_image_url from posts CROSS JOIN users;')
     res.send(posts)
   })
 
