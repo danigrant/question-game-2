@@ -48,12 +48,19 @@ app.prepare().then(() => {
   })
 
   // comments
-  server.get('/api/comments', async (req, res) => {
+  server.get('/api/posts/:post_id/questions/:question_id/comments', async (req, res) => {
+    const { question_id } = req.params
 
+    let comments = await db.any('select * from comments where question_id = $1 order by upvote_count desc;', [question_id])
+    res.send(comments)
   })
 
-  server.post('/api/comments', async (req, res) => {
+  server.post('/api/posts/:post_id/questions/:question_id/comments', async (req, res) => {
+    const { question_id } = req.params
+    const { user_id, comment } = req.body
 
+    let c = await db.one("insert into comments(question_id, user_id, comment) values($1, $2, $3) returning comment_id;", [question_id, user_id, comment])
+    res.send(c)
   })
 
   // upvotes
