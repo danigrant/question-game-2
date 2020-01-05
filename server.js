@@ -34,14 +34,17 @@ app.prepare().then(() => {
   // questions
   server.get('/api/posts/:post_id/questions', async (req, res) => {
     const { post_id } = req.params
-    console.log(post_id);
+
     let questions = await db.any('select * from questions where post_id = $1;', [post_id])
     res.send(questions)
   })
 
   server.post('/api/posts/:post_id/questions', async (req, res) => {
-    const { post_id } = req.params.post_id
+    const { post_id } = req.params
+    const { user_id, question } = req.body
 
+    let q = await db.one("insert into questions(post_id, user_id, question) values($1, $2, $3) returning question_id;", [post_id, user_id, question])
+    res.send(q)
   })
 
   // comments
