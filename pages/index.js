@@ -1,4 +1,5 @@
 import axios from 'axios'
+import Header from '../components/Header'
 
 class Index extends React.Component {
   state = { activePostIndex: 0, question: '' }
@@ -29,6 +30,7 @@ class Index extends React.Component {
 
     return (
       <div>
+        <Header />
         <div className="container">
           <div className="attribution">
             <span className="attribution-avatar">
@@ -113,11 +115,13 @@ class Index extends React.Component {
             background: #B7B7B7;
             font-family: inherit;
             font-size: inherit;
-            padding: 0.5rem;
             border: none;
             outline: none;
             border-radius: 10px;
             min-width: 90px;
+            padding: 0.5rem;
+            padding-left: 1rem;
+            padding-right: 1rem;
           }
           button[type="submit"] {
             background-color: #A699F8;
