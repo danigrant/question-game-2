@@ -25,8 +25,10 @@ app.prepare().then(() => {
   })
 
   server.post('/api/posts', async (req, res) => {
-    let posts = await db.any('select * from posts')
-    res.send(posts)
+    const { user_id, url, type } = req.body
+
+    let post = await db.one("insert into posts(url, user_id, type) values($1, $2, $3) returning post_id;", [url, user_id, type])
+    res.send(post)
   })
 
   // questions
