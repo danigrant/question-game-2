@@ -12,14 +12,15 @@ class Index extends React.Component {
     this.setState({ question: event.target.value })
   }
 
-  handleSubmit = event => {
+  handleSubmit = async (event) => {
     event.preventDefault()
+    this.setState({ question: '' })
     const { data } = await axios.post('http://localhost:3000/api/posts', {  })
   }
 
   handleSkip = () => {
     const { activePostIndex } = this.state
-    this.setState({ activePostIndex: activePostIndex + 1 })
+    this.setState({ activePostIndex: activePostIndex + 1, question: '' })
   }
 
   render() {
@@ -41,7 +42,7 @@ class Index extends React.Component {
           <div className="post">
             { posts[activePostIndex].type == "image" && <img src={posts[activePostIndex].url} alt="A very curious thing that puzzles many!" /> }
             { posts[activePostIndex].type == "video" && (
-              <video autoplay>
+              <video autoplay controls loop>
                 <source src={posts[activePostIndex].url} />
               </video>
             ) }
@@ -66,8 +67,14 @@ class Index extends React.Component {
             padding-right: 80px;
             box-shadow: 0px 4px 4px rgba(135, 135, 135, 0.05);
           }
-          .post img {
-            max-width: 600px;
+          .post img, .post video {
+            max-width: 590px;
+            max-height: 400px;
+            display: block;
+            margin: 0 auto;
+          }
+          video {
+            outline: none;
           }
           .attribution-avatar img {
             width: 3.125rem;
@@ -91,6 +98,31 @@ class Index extends React.Component {
           }
           .post-prompt {
             font-weight: bold;
+          }
+          .post input {
+            width: 100%;
+            padding: 1rem;
+            outline: none;
+            font-family: inherit;
+            color: inherit;
+            font-size: inherit;
+            margin-bottom: 1rem;
+          }
+          button {
+            font-weight: bold;
+            background: #B7B7B7;
+            font-family: inherit;
+            font-size: inherit;
+            padding: 0.5rem;
+            border: none;
+            outline: none;
+            border-radius: 10px;
+            min-width: 90px;
+          }
+          button[type="submit"] {
+            background-color: #A699F8;
+            color: white;
+            margin-right: 1rem;
           }
         `}</style>
       </div>
