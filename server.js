@@ -63,23 +63,46 @@ app.prepare().then(() => {
     res.send(c)
   })
 
-  // upvotes
-  server.get('/api/upvotes', async (req, res) => {
+  // question upvotes
+  server.get('/api/posts/:post_id/questions/:question_id/upvotes', async (req, res) => {
+    const { question_id } = req.params
 
+    let upvotes = await db.any('select * from upvotes where question_id = $1;', [question_id])
+    res.send(upvotes)
   })
 
-  server.post('/api/upvotes', async (req, res) => {
+  server.post('/api/posts/:post_id/questions/:question_id/upvotes', async (req, res) => {
+    const { question_id } = req.params
+    const { user_id } = req.body
 
+    let upvote = db.one("insert into upvotes(question_id, user_id, type) values($1, $2, $3) returning upvote_id;", [question_id, user_id, "question"])
+    res.send(upvote)
+  })
+
+  // comment upvotes
+  server.get('/api/posts/:post_id/questions/:question_id/comments/:comment_id/upvotes', async (req, res) => {
+    const { comment_id } = req.params
+
+    let upvotes = await db.any('select * from upvotes where comment_id = $1;', [comment_id])
+    res.send(upvotes)
+  })
+
+  server.post('/api/posts/:post_id/questions/:question_id/upvotes', async (req, res) => {
+    const { question_id } = req.params
+    const { user_id } = req.body
+
+    let upvote = db.one("insert into upvotes(comment_id, question_id, user_id, type) values($1, $2, $3) returning upvote_id;", [comment_id, question_id, user_id, "comment"])
+    res.send(upvote)
   })
 
   // users
 
   server.post('/api/login', async (req, res) => {
-
+    res.send("welcome back")
   })
 
   server.post('/api/register', async (req, res) => {
-
+    res.send("welcome")
   })
 
   server.get('*', (req, res) => {
