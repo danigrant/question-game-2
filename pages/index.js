@@ -122,11 +122,18 @@ class Index extends React.Component {
             padding: 0.5rem;
             padding-left: 1rem;
             padding-right: 1rem;
+            cursor: pointer;
           }
           button[type="submit"] {
             background-color: #A699F8;
             color: white;
             margin-right: 1rem;
+          }
+          button:hover {
+            filter: brightness(105%);
+          }
+          button:active {
+            filter: brightness(110%);
           }
         `}</style>
       </div>
