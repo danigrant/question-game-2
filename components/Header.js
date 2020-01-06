@@ -12,8 +12,7 @@ export default ({  }) => (
         margin: 1rem;
       }
       .logo {
-        width: 300px;
-        background-color: rgb(255,244,225,0.9);
+        width: 120px;
       }
       .menu-items {
         float: right;
