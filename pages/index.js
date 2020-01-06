@@ -125,7 +125,7 @@ class Index extends React.Component {
             cursor: pointer;
           }
           button[type="submit"] {
-            background-color: #A699F8;
+            background-color: #df29de;
             color: white;
             margin-right: 1rem;
           }

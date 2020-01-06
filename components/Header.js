@@ -5,7 +5,7 @@ export default ({  }) => (
       <div>About</div>
       <div>Submit</div>
       <div>Leaderboard</div>
-      <div className="button">Login With Twitter</div>
+      <div className="button">Login</div>
     </div>
     <style jsx>{`
       .header-wrapper {
@@ -25,6 +25,7 @@ export default ({  }) => (
         display: inline-block;
         padding-left: 0.5rem;
         padding-right: 0.5rem;
+        cursor: pointer;
       }
       .menu-items div:hover {
         filter: brightness(105%);
