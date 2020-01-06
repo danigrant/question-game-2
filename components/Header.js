@@ -13,6 +13,7 @@ export default ({  }) => (
       }
       .logo {
         width: 300px;
+        background-color: rgb(255,244,225,0.9);
       }
       .menu-items {
         float: right;
